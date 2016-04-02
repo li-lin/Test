@@ -44,16 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Box.cs" />
     <Compile Include="FormPokerMan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormPokerMan.Designer.cs">
       <DependentUpon>FormPokerMan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Poker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuitsAndValues.cs" />
+    <EmbeddedResource Include="FormPokerMan.resx">
+      <DependentUpon>FormPokerMan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
