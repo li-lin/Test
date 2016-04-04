@@ -114,7 +114,10 @@
             this.Controls.Add(this.buttonPlayerA);
             this.Controls.Add(this.labelPlayerB);
             this.Controls.Add(this.labelPlayerA);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormPokerMan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Simple Poker Game";
             this.ResumeLayout(false);
             this.PerformLayout();

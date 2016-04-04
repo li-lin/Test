@@ -18,8 +18,8 @@ namespace PokerMan
         {
             InitializeComponent();
             this._box = new Box();
-            this.pa = new Player("Player A");
-            this.pb = new Player("Player B");
+            this.pa = new Player("玩家A");
+            this.pb = new Player("玩家B");
         }
 
         private void buttonPlayerA_Click(object sender, EventArgs e)
@@ -73,14 +73,15 @@ namespace PokerMan
         {
             int r = Box.ALL_COUNT / 4;
             this.labelPlayerA.Text = this.pa.CurrentPokcer.ToString();
-                this.labelPlayerB.Text = this.pb.CurrentPokcer.ToString();
-                Player winer = this.openOne(this.pa, this.pb);
-                winer.GetOne();
-                this.labelResultA.Text = string.Format("得分：{0}", this.pa.Score);
-                this.labelResultB.Text = string.Format("得分：{0}", this.pb.Score);
-                this.buttonPlayerA.Enabled = true;
-                this.buttonPlayerB.Enabled = true;
-                this.buttonOpen.Enabled = false;
+            this.labelPlayerB.Text = this.pb.CurrentPokcer.ToString();
+            Player winer = this.openOne(this.pa, this.pb);
+            winer.GetOne();
+            this.labelResultA.Text = string.Format("得分：{0}", this.pa.Score);
+            this.labelResultB.Text = string.Format("得分：{0}", this.pb.Score);
+            this.buttonPlayerA.Enabled = true;
+            this.buttonPlayerB.Enabled = true;
+            this.buttonOpen.Enabled = false;
+
             if (this.pa.Score > r)
             {
                 MessageBox.Show(string.Format("{0} 胜利!", this.pa.Name));
@@ -93,8 +94,8 @@ namespace PokerMan
             {
                 MessageBox.Show("平局！");
             }
-            else 
-            {                
+            else
+            {
                 return;
             }
 
@@ -106,8 +107,8 @@ namespace PokerMan
             if (dr == System.Windows.Forms.DialogResult.Yes)
             {
                 this._box = new Box();
-                this.pa = new Player("Tom");
-                this.pb = new Player("Jerry");
+                this.pa = new Player("玩家A");
+                this.pb = new Player("玩家B");
                 this.buttonPlayerA.Enabled = this.buttonPlayerB.Enabled = true;
                 this.buttonOpen.Enabled = false;
                 this.labelPlayerA.Text = this.labelPlayerB.Text = "准备就绪";
