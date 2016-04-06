@@ -11,20 +11,22 @@ namespace PokerMan
 {
     public partial class FormPokerMan : Form
     {
-        private Box _box;
+        private Game game;
         private Player pa;
         private Player pb;
         public FormPokerMan()
         {
             InitializeComponent();
-            this._box = new Box();
-            this.pa = new Player("玩家A");
-            this.pb = new Player("玩家B");
+            this.game = new Game();
+            this.pa = new Player("Tom");
+            this.pb = new Player("Jerry");
+            this.buttonPlayerA.Text = this.pa.Name;
+            this.buttonPlayerB.Text = this.pb.Name;
         }
 
         private void buttonPlayerA_Click(object sender, EventArgs e)
         {
-            this.pa.CurrentPokcer = this._box.Deal();
+            this.game.DealCardToPlayer(this.pa);
             this.labelPlayerA.Text = "选定";
             this.buttonPlayerA.Enabled = false;
             if (this.buttonPlayerA.Enabled == false && this.buttonPlayerB.Enabled == false)
@@ -35,7 +37,7 @@ namespace PokerMan
 
         private void buttonPlayerB_Click(object sender, EventArgs e)
         {
-            this.pb.CurrentPokcer = this._box.Deal();
+            this.game.DealCardToPlayer(this.pb);
             this.labelPlayerB.Text = "选定";
             this.buttonPlayerB.Enabled = false;
             if (this.buttonPlayerA.Enabled == false && this.buttonPlayerB.Enabled == false)
@@ -43,72 +45,38 @@ namespace PokerMan
                 this.buttonOpen.Enabled = true;
             }
         }
-
-        private Player openOne(Player a, Player b)
-        {
-            Player p = null;
-            if (a.CurrentPokcer.Value > b.CurrentPokcer.Value)
-            {
-                p = a;
-            }
-            else if (a.CurrentPokcer.Value == b.CurrentPokcer.Value)
-            {
-                if (a.CurrentPokcer.Suit > b.CurrentPokcer.Suit)
-                {
-                    p = a;
-                }
-                else
-                {
-                    p = b;
-                }
-            }
-            else
-            {             
-                p = b;
-            }
-            return p;
-        }
-
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            int r = Box.ALL_COUNT / 4;
-            this.labelPlayerA.Text = this.pa.CurrentPokcer.ToString();
-            this.labelPlayerB.Text = this.pb.CurrentPokcer.ToString();
-            Player winer = this.openOne(this.pa, this.pb);
-            winer.GetOne();
+            this.labelPlayerA.Text = this.pa.CurrentPoker.ToString();
+            this.labelPlayerB.Text = this.pb.CurrentPoker.ToString();
+            this.game.OpenOnce(this.pa, this.pb);
+
             this.labelResultA.Text = string.Format("得分：{0}", this.pa.Score);
             this.labelResultB.Text = string.Format("得分：{0}", this.pb.Score);
             this.buttonPlayerA.Enabled = true;
             this.buttonPlayerB.Enabled = true;
             this.buttonOpen.Enabled = false;
 
-            if (this.pa.Score > r)
+            if (this.game.IsOver(this.pa, this.pb) == true)
             {
-                MessageBox.Show(string.Format("{0} 胜利!", this.pa.Name));
+                Player winner = this.game.WhoIsWinner(this.pa, this.pb);
+                if (winner != null)
+                {
+                    MessageBox.Show(string.Format("{0} 胜利!", winner), "游戏结束");
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("平局"), "游戏结束");
+                }
+                this.restart();
             }
-            else if (this.pb.Score > r)
-            {
-                MessageBox.Show(string.Format("{0} 胜利!", this.pb.Name));
-            }
-            else if (this.pa.Score == r && this.pb.Score == r)
-            {
-                MessageBox.Show("平局！");
-            }
-            else
-            {
-                return;
-            }
-
-            this.reset();
         }
-        private void reset()
+        private void restart()
         {
             DialogResult dr = MessageBox.Show("是否重新再来一局？", "提示", MessageBoxButtons.YesNo);
             if (dr == System.Windows.Forms.DialogResult.Yes)
             {
-                this._box = new Box();
-                this.pa = new Player("玩家A");
-                this.pb = new Player("玩家B");
+                this.game.Restart(this.pa,this.pb);
                 this.buttonPlayerA.Enabled = this.buttonPlayerB.Enabled = true;
                 this.buttonOpen.Enabled = false;
                 this.labelPlayerA.Text = this.labelPlayerB.Text = "准备就绪";
