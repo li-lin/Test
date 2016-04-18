@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PokerMan
 {
+    /// <summary>
+    /// 扑克牌类，通过花色和数值描述一张扑克牌。
+    /// </summary>
     public class Poker
     {
         public Suit Suit { get; private set; }
