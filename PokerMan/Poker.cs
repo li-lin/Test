@@ -6,7 +6,7 @@ using System.Text;
 namespace PokerMan
 {
     /// <summary>
-    /// 扑克牌类，通过花色和数值描述一张扑克牌。
+    /// 扑克牌类，通过花色和数值描述一张扑克牌。花色和数值均为枚举类型。
     /// </summary>
     public class Poker
     {
