@@ -23,11 +23,18 @@ namespace PokerMan
                 }
             }
         }
+        /// <summary>
+        /// 玩家构造函数
+        /// </summary>
+        /// <param name="name">玩家姓名</param>
         public Player(string name)
         {
             this.Name = name;
             this.Pokers = new List<Poker>();
         }
+        /// <summary>
+        /// 玩家赢得一次计一分
+        /// </summary>
         public void WinOnce()
         {
             this.Score += 1;
